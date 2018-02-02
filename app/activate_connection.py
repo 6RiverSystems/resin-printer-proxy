@@ -20,19 +20,17 @@ dtype = {
     '802-3-ethernet': NetworkManager.NM_DEVICE_TYPE_ETHERNET,
     'gsm': NetworkManager.NM_DEVICE_TYPE_MODEM,
 }.get(ctype,ctype)
-print(dtype)
+print("Dtype: {} ctype: {}".format(dtype,ctype))
 
 devices = NetworkManager.NetworkManager.GetDevices()
 
 for dev in devices:
     if dev.DeviceType == dtype:
         print("WIFI DeviceType: {} State: {}".format(dev.DeviceType,dev.State))
-        print(dev)
+        print("Activate device {} and connection {}".format(dev,conn))
         break
-    else:
-        print("No suitable and available %s device found" % ctype)
-        sys.exit(1)
+
 # 
 # # And connect
-print(dev)
+#print(dev)
 #NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
