@@ -34,9 +34,9 @@ for dev in devices:
     if dev.DeviceType == dtype and dev.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
         print(dev)
         break
-else:
-    print("No suitable and available %s device found" % ctype)
-    sys.exit(1)
+    else:
+        print("No suitable and available %s device found" % ctype)
+        sys.exit(1)
 # 
 # # And connect
 # NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
