@@ -5,7 +5,7 @@ ENV INITSYSTEM on
 RUN apt-get -q update \
 	&& apt-get -qy install \
 		wget \
-		python python-dev python-pip python-virtualenv \
+		python python-dev python-pip python-virtualenv python-setuptools\
 		build-essential  \
 		net-tools \
 		vim \
