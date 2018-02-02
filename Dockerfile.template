@@ -13,6 +13,8 @@ RUN apt-get -q update \
 		python-dbus \
 		git
 
+RUN pip install wheel
+
 RUN pip install python-networkmanager 
 
 COPY app/ /usr/src/app
