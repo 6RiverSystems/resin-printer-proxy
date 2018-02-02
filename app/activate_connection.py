@@ -26,7 +26,7 @@ print(connections)
 #     '802-3-ethernet': NetworkManager.NM_DEVICE_TYPE_ETHERNET,
 #     'gsm': NetworkManager.NM_DEVICE_TYPE_MODEM,
 # }.get(ctype,ctype)
-# devices = NetworkManager.NetworkManager.GetDevices()
+devices = NetworkManager.NetworkManager.GetDevices()
 
 for dev in devices:
     print(dev.DeviceType)
