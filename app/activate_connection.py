@@ -21,22 +21,22 @@ print(connections)
 #         print("No active, managed device found")
 #         sys.exit(1)
 # else:
-    dtype = {
-        '802-11-wireless': NetworkManager.NM_DEVICE_TYPE_WIFI,
-        '802-3-ethernet': NetworkManager.NM_DEVICE_TYPE_ETHERNET,
-        'gsm': NetworkManager.NM_DEVICE_TYPE_MODEM,
-    }.get(ctype,ctype)
-    devices = NetworkManager.NetworkManager.GetDevices()
+dtype = {
+    '802-11-wireless': NetworkManager.NM_DEVICE_TYPE_WIFI,
+    '802-3-ethernet': NetworkManager.NM_DEVICE_TYPE_ETHERNET,
+    'gsm': NetworkManager.NM_DEVICE_TYPE_MODEM,
+}.get(ctype,ctype)
+devices = NetworkManager.NetworkManager.GetDevices()
 
-    for dev in devices:
-        print(dev.DeviceType)
-        print(dev.State)
-        if dev.DeviceType == dtype and dev.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
-            print(dev)
-            break
-    else:
-        print("No suitable and available %s device found" % ctype)
-        sys.exit(1)
+for dev in devices:
+    print(dev.DeviceType)
+    print(dev.State)
+    if dev.DeviceType == dtype and dev.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
+        print(dev)
+        break
+else:
+    print("No suitable and available %s device found" % ctype)
+    sys.exit(1)
 # 
 # # And connect
 # NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
