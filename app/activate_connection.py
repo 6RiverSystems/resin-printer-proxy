@@ -29,10 +29,10 @@ for dev in devices:
         print("WIFI DeviceType: {} State: {}".format(dev.DeviceType,dev.State))
         print(dev)
         break
-    # else:
-    #     print("No suitable and available %s device found" % ctype)
-    #     sys.exit(1)
+    else:
+        print("No suitable and available %s device found" % ctype)
+        sys.exit(1)
 # 
 # # And connect
 print(dev)
-# NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
+#NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
