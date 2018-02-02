@@ -1,0 +1,22 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch
+
+ENV INITSYSTEM on
+
+RUN apt-get -q update \
+	&& apt-get -qy install \
+		wget \
+		python python-dev python-pip python-virtualenv \
+		build-essential  \
+		net-tools \
+		vim \
+		dbus \
+		python-dbus \
+		git
+
+RUN pip install python-networkmanager 
+
+COPY app/ /usr/src/app
+
+WORKDIR /usr/src/app
+
+CMD ["./app.sh"]
