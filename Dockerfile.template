@@ -13,7 +13,8 @@ RUN apt-get -q update \
 		python-dbus \
 		git \
 		pkg-config \
-		libdbus-1-dev
+		libdbus-1-dev \
+		libdbus-glib-1-dev
 
 RUN pip install wheel
 
