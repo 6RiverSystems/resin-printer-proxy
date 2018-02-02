@@ -29,8 +29,11 @@ print(connections)
 devices = NetworkManager.NetworkManager.GetDevices()
 
 for dev in devices:
-    print(dev.DeviceType)
-    print(dev.State)
+    if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI:
+        print("WIFI DeviceType: {} State: {}".format(dev.DeviceType,dev.State))
+        print(NetworkManager.NM_DEVICE_STATE_DISCONNECTED)
+        print(dev)
+        
     # if dev.DeviceType == dtype and dev.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
     #     print(dev)
     #     break
