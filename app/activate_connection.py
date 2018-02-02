@@ -28,6 +28,7 @@ for dev in devices:
     if dev.DeviceType == dtype:
         print("WIFI DeviceType: {} State: {}".format(dev.DeviceType,dev.State))
         print("Activate device {} and connection {}".format(dev,conn))
+        NetworkManager.NetworkManager.ActivateConnection(conn, dev, "/")
         break
 
 # 
