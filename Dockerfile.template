@@ -11,7 +11,8 @@ RUN apt-get -q update \
 		vim \
 		dbus \
 		python-dbus \
-		git
+		git \
+		pkg-config
 
 RUN pip install wheel
 
