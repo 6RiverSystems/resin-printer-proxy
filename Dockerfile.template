@@ -20,6 +20,10 @@ RUN pip install wheel
 
 RUN pip install python-networkmanager 
 
+RUN apt-get update && apt-get install nginx
+
+#COPY nginx/default.conf /etc/nginx/sites-avaliable/default.conf
+
 COPY app/ /usr/src/app
 
 WORKDIR /usr/src/app

@@ -43,9 +43,7 @@ s_wsec = dbus.Dictionary({
     'key-mgmt': 'wpa-psk',
     'psk': 'great password'})
 
-s_ip4 = dbus.Dictionary({
-    'method': 'shared',
-    'address1': '10.99.99.1/24,10.99.99.1'})
+s_ip4 = dbus.Dictionary({'method': 'shared'})
 s_ip6 = dbus.Dictionary({'method': 'ignore'})
 
 con = dbus.Dictionary({
