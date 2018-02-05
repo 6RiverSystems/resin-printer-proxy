@@ -25,9 +25,14 @@ RUN apt-get -q update \
       pkg-config \
       libdbus-1-dev \
       libdbus-glib-1-dev && \
+		rm -rm /etc/nginx/sites-enabled/* && \
+		curl -s https://install.zerotier.com/ | bash && \
     rm -rf /var/lib/apt/lists/*
 
 #COPY nginx/default.conf /etc/nginx/sites-aval
+
+COPY nginx-template.conf /etc/nginx/nginx-template.conf
+COPY printer-template  /etc/nginx/printer-template
 
 COPY app/ /usr/src/app
 

@@ -34,14 +34,14 @@ s_con = dbus.Dictionary({
     'id': 'Test Hotspot'})
 
 s_wifi = dbus.Dictionary({
-    'ssid': dbus.ByteArray("My Hotspot".encode("utf-8")),
+    'ssid': dbus.ByteArray("printer-proxy-1".encode("utf-8")),
     'mode': "ap",
     'band': "bg",
     'channel': dbus.UInt32(1)})
 
 s_wsec = dbus.Dictionary({
     'key-mgmt': 'wpa-psk',
-    'psk': 'great password'})
+    'psk': '6rsprinter'})
 
 s_ip4 = dbus.Dictionary({'method': 'shared'})
 s_ip6 = dbus.Dictionary({'method': 'ignore'})
