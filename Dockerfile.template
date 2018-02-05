@@ -25,7 +25,7 @@ RUN apt-get -q update \
       pkg-config \
       libdbus-1-dev \
       libdbus-glib-1-dev && \
-		rm -rm /etc/nginx/sites-enabled/* && \
+		rm -rf /etc/nginx/sites-enabled/* && \
 		curl -s https://install.zerotier.com/ | bash && \
     rm -rf /var/lib/apt/lists/*
 
