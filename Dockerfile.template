@@ -2,7 +2,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-alpine
 
 ENV INITSYSTEM on
 
-RUN apk install --no-cache \
+RUN apk add --no-cache \
     wget \
 		python \
 		python-dev \
