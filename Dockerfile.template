@@ -1,7 +1,7 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-alpine
 
 ENV INITSYSTEM on
-RUN [ "cross-build-start" ]
+
 RUN apk add --no-cache \
     wget \
 		python \
@@ -9,7 +9,9 @@ RUN apk add --no-cache \
 		py-setuptools \
 		py-dbus \
 		py-pip \
-		g++ \
+    g++ \
+    gcc \
+    musl-dev\
 		make \
 		net-tools \
 		dbus-dev \
@@ -30,6 +32,5 @@ RUN pip install python-networkmanager
 COPY app/ /usr/src/app
 
 WORKDIR /usr/src/app
-RUN [ "cross-build-end" ]
 
 CMD ["./app.sh"]
