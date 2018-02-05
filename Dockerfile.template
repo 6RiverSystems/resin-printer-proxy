@@ -1,33 +1,31 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-alpine
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch
 
 ENV INITSYSTEM on
 
-RUN apk add --no-cache \
-    wget \
-		python \
-		python-dev \
-		py-setuptools \
-		py-dbus \
-		py-pip \
-    g++ \
-    gcc \
-    musl-dev\
-		make \
+RUN apt-get -q update \
+	  && apt-get -qy install \
+		wget \
+		python python-dev python-pip python-setuptools\
+		build-essential  \
 		net-tools \
-		dbus-dev \
+		vim \
+		dbus \
+		python-dbus \
 		git \
-		dbus-glib-dev \
-		glib-dev \
-		pkgconfig \
-		nginx
+		pkg-config \
+		libdbus-1-dev \
+		libdbus-glib-1-dev &&
+    pip install wheel
+    pip install python-networkmanager  &&
+    apt-get purge \
+    python-dev python-pip python-setuptools\
+    build-essential  \
+    git \
+    pkg-config \
+    libdbus-1-dev \
+    libdbus-glib-1-dev
 
-
-RUN pip install wheel
-
-RUN pip install python-networkmanager 
-
-
-#COPY nginx/default.conf /etc/nginx/sites-avaliable/default.conf
+#COPY nginx/default.conf /etc/nginx/sites-aval
 
 COPY app/ /usr/src/app
 
