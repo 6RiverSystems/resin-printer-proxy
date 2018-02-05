@@ -48,8 +48,8 @@ s_ip6 = dbus.Dictionary({'method': 'ignore'})
 
 con = dbus.Dictionary({
     'connection': s_con,
-    'wifi': s_wifi,
-    'wifi-security': s_wsec,
+    '802-11-wireless': s_wifi,
+    '802-11-wireless-security': s_wsec,
     'ipv4': s_ip4,
     'ipv6': s_ip6
      })
