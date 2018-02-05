@@ -7,6 +7,7 @@ RUN apt-get -q update \
 		wget \
 		python python-dev python-pip python-setuptools\
 		build-essential  \
+    nginx \
 		net-tools \
 		vim \
 		dbus \
