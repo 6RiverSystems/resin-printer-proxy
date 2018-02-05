@@ -18,12 +18,13 @@ RUN apt-get -q update \
     pip install wheel && \
     pip install python-networkmanager  && \
     apt-get purge \
-    python-dev python-pip python-setuptools \
-    build-essential  \
-    git \
-    pkg-config \
-    libdbus-1-dev \
-    libdbus-glib-1-dev
+      python-dev python-pip python-setuptools \
+      build-essential  \
+      git \
+      pkg-config \
+      libdbus-1-dev \
+      libdbus-glib-1-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 #COPY nginx/default.conf /etc/nginx/sites-aval
 
