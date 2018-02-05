@@ -14,11 +14,11 @@ RUN apt-get -q update \
 		git \
 		pkg-config \
 		libdbus-1-dev \
-		libdbus-glib-1-dev &&
-    pip install wheel
-    pip install python-networkmanager  &&
+		libdbus-glib-1-dev && \
+    pip install wheel && \
+    pip install python-networkmanager  && \
     apt-get purge \
-    python-dev python-pip python-setuptools\
+    python-dev python-pip python-setuptools \
     build-essential  \
     git \
     pkg-config \
