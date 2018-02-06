@@ -58,6 +58,8 @@ ln -sf /data/zerotier-one /var/lib/zerotier-one
 
 service zerotier-one start
 
+sleep 5
+
 echo "ZeroTier Started with status:"
 zerotier-cli info
 
