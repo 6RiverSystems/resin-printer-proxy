@@ -57,7 +57,11 @@ python ./hotspot.py wlan1 up
 if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
   echo "Linking ZeroTier to data directory"
   service zerotier-one stop
-  mv /var/lib/zerotier-one /data/zerotier-one 
+  if [[ -d "/data/zerotier-one" ]]; then
+    rm -rf /var/lib/zerotier-one
+  else 
+    mv /var/lib/zerotier-one /data/zerotier-one 
+  fi
   ln -sf /data/zerotier-one /var/lib/zerotier-one
   chown zerotier-one:zerotier-one /var/lib/zerotier-one
   echo "Starting Zerotier Service"
@@ -78,11 +82,12 @@ else
   echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
 fi
 
-iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  
-iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT  
-iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
+# iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  
+# iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+# iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 
 echo "Waiting for printer to be reachable...."
-until ping -c1 www.google.com &>/dev/null; do :; done
+until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
+echo "Found printer starting proxy...."
 
 nginx -g 'daemon off;'
