@@ -37,7 +37,7 @@ RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/
 
 #COPY nginx/default.conf /etc/nginx/sites-aval
 
-COPY ningx-config/nginx-template.conf /etc/nginx/nginx-template.conf
+COPY nginx-config/nginx-template.conf /etc/nginx/nginx-template.conf
 COPY nginx-config/printer-template  /etc/nginx/printer-template
 
 COPY app/ /usr/src/app
