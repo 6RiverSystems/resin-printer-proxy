@@ -34,20 +34,20 @@ ln -sf /etc/nginx/sites-available/printer /etc/nginx/sites-enabled/printer
 
 ifconfig
 
-sleep 5
-
-ifconfig wlan0 down
-ifconfig wlan1 down
-
-sleep 2
-ifconfig wlan1 up
-
-sleep 2
-ifconfig wlan0 up
-
-sleep 5
-
-python ./hotspot.py wlan0 up
+# sleep 5
+# 
+# ifconfig wlan0 down
+# ifconfig wlan1 down
+# 
+# sleep 2
+# ifconfig wlan1 up
+# 
+# sleep 2
+# ifconfig wlan0 up
+# 
+# sleep 5
+# 
+# python ./hotspot.py wlan0 up
 
 service zerotier-one stop 
 
