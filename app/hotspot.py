@@ -24,7 +24,7 @@
 # https://developer.gnome.org/NetworkManager/1.0/ref-settings.html
 #
 
-import dbus, sys, time, NetworkManager
+import dbus, sys, time
 
 our_uuid = '2b0d0f1d-b79d-43af-bde1-71744625642e'
 
@@ -69,7 +69,7 @@ if len(sys.argv) != 3:
 iface = sys.argv[1]
 proxy = bus.get_object(service_name, "/org/freedesktop/NetworkManager")
 nm = dbus.Interface(proxy, "org.freedesktop.NetworkManager")
-#devpath = nm.GetDeviceByIpIface(iface)
+devpath = nm.GetDeviceByIpIface(iface)
 
 # Find our existing hotspot connection
 connection_path = None
@@ -85,20 +85,12 @@ for path in settings.ListConnections():
 if not connection_path:
     connection_path = settings.AddConnection(con)
 
-devices = NetworkManager.NetworkManager.GetDevices()
-
-for dev in devices:
-    if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI and dev.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
-        break
-else:
-    print("No suitable and available hotspot device found")
-
 # Now start or stop the hotspot on the requested device
-proxy = bus.get_object(service_name, dev.Path)
+proxy = bus.get_object(service_name, devpath)
 device = dbus.Interface(proxy, "org.freedesktop.NetworkManager.Device")
 operation = sys.argv[2]
 if operation == "up":
-    acpath = nm.ActivateConnection(connection_path, dev.Path, "/")
+    acpath = nm.ActivateConnection(connection_path, devpath, "/")
     proxy = bus.get_object(service_name, acpath)
     active_props = dbus.Interface(proxy, "org.freedesktop.DBus.Properties")
 

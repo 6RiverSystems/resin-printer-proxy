@@ -48,7 +48,7 @@ ifconfig
 # sleep 5
 # 
 
-python ./hotspot.py wlan0 up
+python ./hotspot.py wlan1 up
 
 service zerotier-one stop 
 
