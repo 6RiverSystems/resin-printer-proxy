@@ -8,8 +8,9 @@ RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/
     apt-key add /tmp/zerotier-key.pub && \
     apt-get -q update \
 	  && apt-get -qy install \
-		wget \
-		python python-dev python-pip python-setuptools\
+		curl \
+    tar \
+		python python-dev python-pip python-setuptools \
 		build-essential  \
     nginx \
 		net-tools \
@@ -20,6 +21,8 @@ RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/
 		python-dbus \
 		git \
 		pkg-config \
+    dnsmasq \
+    wireless-tools \
 		libdbus-1-dev \
 		libdbus-glib-1-dev && \
     pip install wheel && \
@@ -32,8 +35,13 @@ RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/
       libdbus-1-dev \
       libdbus-glib-1-dev && \
 		rm -rf /etc/nginx/sites-enabled/* && \
-		curl -s https://install.zerotier.com/ | bash && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
+    | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
+    | xargs -n1 curl -Ls \
+    | tar -xvz -C /usr/src/app/
 
 #COPY nginx/default.conf /etc/nginx/sites-aval
 
