@@ -69,7 +69,7 @@ if len(sys.argv) != 3:
 iface = sys.argv[1]
 proxy = bus.get_object(service_name, "/org/freedesktop/NetworkManager")
 nm = dbus.Interface(proxy, "org.freedesktop.NetworkManager")
-devpath = nm.GetDeviceByIpIface(iface)
+#devpath = nm.GetDeviceByIpIface(iface)
 
 # Find our existing hotspot connection
 connection_path = None
@@ -84,6 +84,14 @@ for path in settings.ListConnections():
 # If the hotspot connection didn't already exist, add it
 if not connection_path:
     connection_path = settings.AddConnection(con)
+
+devices = NetworkManager.NetworkManager.GetDevices()
+
+for devpath in devices:
+    if devpath.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI and devpath.State == NetworkManager.NM_DEVICE_STATE_DISCONNECTED:
+        break
+else:
+    print("No suitable and available hotspot device found")
 
 # Now start or stop the hotspot on the requested device
 proxy = bus.get_object(service_name, devpath)
