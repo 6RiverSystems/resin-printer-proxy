@@ -4,7 +4,9 @@ ENV INITSYSTEM on
 
 COPY zerotier/key.pub /tmp/zerotier-key.pub
 
-RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/apt/sources.list && \
+RUN apt-get update && apt-get install -y software-properties-common python-software-properties && \
+    add-apt-repository ppa:nginx/stable && \
+    echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/apt/sources.list && \
     apt-key add /tmp/zerotier-key.pub && \
     apt-get -q update \
 	  && apt-get -qy install \
