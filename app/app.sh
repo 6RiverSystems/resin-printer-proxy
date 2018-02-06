@@ -58,4 +58,17 @@ ln -sf /data/zerotier-one /var/lib/zerotier-one
 
 service zerotier-one start
 
+echo "ZeroTier Started with status:"
+zerotier-cli status
+
+zerotier-cli listnetworks | grep -q "${ZEROTIER_NETWORK}"
+
+if [ $? -eq 0 ]; then
+  echo "Zerotier Network Prsent: ${ZEROTIER_NETWORK}"
+else 
+  zerotier-cli join ${ZEROTIER_NETWORK}
+  echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
+fi
+
+
 nginx -g 'daemon off;'
