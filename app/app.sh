@@ -4,6 +4,9 @@
 : ${PRINTER_IP?"Need to set PRINTER_IP"}
 : ${ZEROTIER_NETWORK?"Need to set ZEROTIER_NETWORK"}
 
+
+sysctl -w net.ipv4.ip_forward=1
+
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 # Choose a condition for running WiFi Connect according to your use case:
