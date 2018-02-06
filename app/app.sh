@@ -24,7 +24,7 @@ if [ $? -eq 0 ]; then
     printf 'Skipping WiFi Connect\n'
 else
     printf 'Starting WiFi Connect\n'
-    ./wifi-connect -s pp-wifi-setup -p 6rsprinter -i wlan0
+    ./wifi-connect -s pp-wifi-setup -p 6rsprinter
 fi
 
 envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf 
@@ -47,7 +47,8 @@ ifconfig
 # 
 # sleep 5
 # 
-# python ./hotspot.py wlan0 up
+
+python ./hotspot.py wlan0 up
 
 service zerotier-one stop 
 

@@ -31,6 +31,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
 		libdbus-glib-1-dev && \
     pip install wheel && \
     pip install python-networkmanager  && \
+    systemctl disable nginx && \
     apt-get purge \
       python-dev python-pip python-setuptools \
       build-essential  \
