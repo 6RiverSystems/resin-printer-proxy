@@ -59,7 +59,7 @@ ln -sf /data/zerotier-one /var/lib/zerotier-one
 service zerotier-one start
 
 echo "ZeroTier Started with status:"
-zerotier-cli status
+zerotier-cli info
 
 zerotier-cli listnetworks | grep -q "${ZEROTIER_NETWORK}"
 
