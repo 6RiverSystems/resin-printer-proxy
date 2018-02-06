@@ -16,7 +16,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
     tar \
 		python python-dev python-pip python-setuptools \
 		build-essential  \
-    nginx \
+    nginx-full \
 		net-tools \
 		gettext \
     zerotier-one \
