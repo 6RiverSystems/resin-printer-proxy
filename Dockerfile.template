@@ -8,6 +8,7 @@ RUN echo "deb http://download.zerotier.com/debian/stretch stretch main" >> /etc/
     apt-key add /tmp/zerotier-key.pub && \
     apt-get -q update \
 	  && apt-get -qy install \
+    wget \
 		curl \
     tar \
 		python python-dev python-pip python-setuptools \
