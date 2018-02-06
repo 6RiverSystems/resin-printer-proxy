@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck shell=dash 
+# shellcheck shell=bash 
 
 : ${PRINTER_IP?"Need to set PRINTER_IP"}
 : ${ZEROTIER_NETWORK?"Need to set ZEROTIER_NETWORK"}
@@ -53,15 +53,21 @@ ifconfig
 
 python ./hotspot.py wlan1 up
 
-service zerotier-one stop 
+ 
 
-mkdir -p /data/zerotier-one 
 
-ln -sf /data/zerotier-one /var/lib/zerotier-one
 
-service zerotier-one start
+if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
+  echo "Linking ZeroTier to data directory"
+  service zerotier-one stop
+  mv /var/lib/zerotier-one /data/zerotier-one 
+  ln -sf /data/zerotier-one /var/lib/zerotier-one
+  chown zerotier-one:zerotier-one /var/lib/zerotier-one
+  echo "Starting Zerotier Service"
+  service zerotier-one start
+  sleep 5
+fi
 
-sleep 5
 
 echo "ZeroTier Started with status:"
 zerotier-cli info
@@ -75,8 +81,8 @@ else
   echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
 fi
 
-# iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  
-# iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT  
-# iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
+iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  
+iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 
 nginx -g 'daemon off;'
