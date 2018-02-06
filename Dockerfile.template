@@ -26,6 +26,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
 		git \
 		pkg-config \
     dnsmasq \
+    iptables \
     wireless-tools \
 		libdbus-1-dev \
 		libdbus-glib-1-dev && \
@@ -39,6 +40,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
       pkg-config \
       libdbus-1-dev \
       libdbus-glib-1-dev && \
+    echo 1 > /proc/sys/net/ipv4/ip_forward && \
 		rm -rf /etc/nginx/sites-enabled/* && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
