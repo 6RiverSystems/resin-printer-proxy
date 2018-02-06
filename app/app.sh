@@ -29,9 +29,9 @@ else
 fi
 
 envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf 
-envsubst < /etc/nginx/printer-template > /etc/nginx/sites-avaliable/printer
+envsubst < /etc/nginx/printer-template > /etc/nginx/sites-available/printer
 
-ln -s /etc/nginx/sites-avaliable/printer /etc/nginx/sites-enabled/printer
+ln -s /etc/nginx/sites-available/printer /etc/nginx/sites-enabled/printer
 
 sleep 5
 
