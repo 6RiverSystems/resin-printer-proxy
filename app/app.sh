@@ -25,7 +25,7 @@ if [ -f "/data/firstboot" ]; then
   until [ $n -ge 5 ]
   do
     echo "Trying to ping google....."
-    ping -c1 ${PRINTER_IP} &>/dev/null && break  # substitute your command here
+    ping -c1 www.google.com &>/dev/null && break  # substitute your command here
     n=$[$n+1]
     sleep 15
   done
