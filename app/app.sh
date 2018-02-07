@@ -15,7 +15,16 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
-sleep 15
+
+sleep 5
+
+ifconfig wlan0 down
+
+sleep 2
+ifconfig wlan0 up
+
+sleep 5
+
 # 3. Is there Internet connectivity via a google ping?
 wget --spider http://google.com 2>&1
 
@@ -38,19 +47,7 @@ ln -sf /etc/nginx/sites-available/printer /etc/nginx/sites-enabled/printer
 
 ifconfig
 
-# sleep 5
-# 
-# ifconfig wlan0 down
-# ifconfig wlan1 down
-# 
-# sleep 2
-# ifconfig wlan1 up
-# 
-# sleep 2
-# ifconfig wlan0 up
-# 
-# sleep 5
-# 
+
 echo "Starting printer proxy network: ${PP_SSID}"
 python ./hotspot.py wlan1 up
 
