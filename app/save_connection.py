@@ -1,7 +1,8 @@
 """
 Save Settings that don't get saved
 """
-import NetworkManager, uuid
+import NetworkManager, uuid, pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 for conn in NetworkManager.NetworkManager.ActiveConnections:
     settings = conn.Connection.GetSettings()
@@ -10,4 +11,5 @@ for conn in NetworkManager.NetworkManager.ActiveConnections:
         if 'wlan1' in devices or 'wlan0' in devices:
             print("Saving connection for {}".format(settings['connection']['id']))
             settings['connection']['uuid'] = str(uuid.uuid4())
-            NetworkManager.Settings.AddConnection(settings)
+            pp.print(settings)
+            #NetworkManager.Settings.AddConnection(settings)

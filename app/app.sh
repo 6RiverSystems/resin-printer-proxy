@@ -28,7 +28,7 @@ else
     printf 'Starting WiFi Connect\n'
     ./wifi-connect -s pp-wifi-setup -p 6rsprinter
     sleep 5
-    python ./save_connection.py
+    # python ./save_connection.py
 fi
 
 envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf 
