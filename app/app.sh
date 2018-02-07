@@ -19,16 +19,14 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
 
-# sleep 5
-# 
-ifconfig wlan0 down
-
-sleep 2
-ifconfig wlan0 up
-
-sleep 5
-
-
+n=0
+until [ $n -ge 5 ]
+do
+  echo "Trying to ping google....."
+  ping -c1 ${PRINTER_IP} &>/dev/null && break  # substitute your command here
+  n=$[$n+1]
+  sleep 15
+done
 
 # 3. Is there Internet connectivity via a google ping?
 wget --spider http://google.com 2>&1
