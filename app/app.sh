@@ -1,7 +1,8 @@
 #!/bin/bash
 # shellcheck shell=bash 
-exec >  >(tee -ia /tmp/test.log)
-exec 2> >(tee -ia /tmp/test.log >&2)
+LOGFILE=/tmp/app.log
+exec > >(tee -a $LOGFILE)
+exec 2>&1
 
 export PP_SSID=${PP_SSID:-unconfigured-printer-proxy}
 export PRINTER_IP=${PRINTER_IP:-10.42.0.10}
