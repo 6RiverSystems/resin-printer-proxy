@@ -1,10 +1,10 @@
 #!/bin/bash
 # shellcheck shell=bash 
-
+export PP_SSID=${PP_SSID:-unconfigured-printer-proxy}
 : ${PRINTER_IP?"Need to set PRINTER_IP"}
 : ${ZEROTIER_NETWORK?"Need to set ZEROTIER_NETWORK"}
 
-
+#Enable ip forwarding to route traffic between wifi devices
 sysctl -w net.ipv4.ip_forward=1
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
@@ -81,10 +81,6 @@ else
   zerotier-cli join ${ZEROTIER_NETWORK}
   echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
 fi
-
-# iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE  
-# iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT  
-# iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 
 echo "Waiting for printer to be reachable...."
 until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done

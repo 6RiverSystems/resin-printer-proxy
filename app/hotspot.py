@@ -34,7 +34,7 @@ s_con = dbus.Dictionary({
     'id': 'Test Hotspot'})
 
 s_wifi = dbus.Dictionary({
-    'ssid': dbus.ByteArray("printer-proxy-1".encode("utf-8")),
+    'ssid': dbus.ByteArray(os.environ['PP_SSID'].encode("utf-8")),
     'mode': "ap",
     'band': "bg",
     'channel': dbus.UInt32(1)})
