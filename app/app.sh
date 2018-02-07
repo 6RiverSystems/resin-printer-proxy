@@ -1,5 +1,6 @@
 #!/bin/bash
 # shellcheck shell=bash 
+echo "PP_SSID is set to: ${PP_SSID}"
 export PP_SSID=${PP_SSID:-unconfigured-printer-proxy}
 export PRINTER_IP=${PRINTER_IP:-10.42.0.10}
 export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
@@ -49,7 +50,7 @@ ifconfig
 # 
 # sleep 5
 # 
-
+echo "Starting printer proxy network: ${PP_SSID}"
 python ./hotspot.py wlan1 up
 
  
