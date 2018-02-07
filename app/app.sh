@@ -1,9 +1,8 @@
 #!/bin/bash
 # shellcheck shell=bash 
 export PP_SSID=${PP_SSID:-unconfigured-printer-proxy}
-: ${PRINTER_IP?"Need to set PRINTER_IP"}
-: ${ZEROTIER_NETWORK?"Need to set ZEROTIER_NETWORK"}
-
+export PRINTER_IP=${PRINTER_IP:-10.42.0.10}
+export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
 #Enable ip forwarding to route traffic between wifi devices
 sysctl -w net.ipv4.ip_forward=1
 
@@ -77,7 +76,7 @@ zerotier-cli listnetworks | grep -q "${ZEROTIER_NETWORK}"
 
 if [ $? -eq 0 ]; then
   echo "Zerotier Network Prsent: ${ZEROTIER_NETWORK}"
-else 
+elif [ "$ZEROTIER_NETWORK" != "UNSET" ]; then
   zerotier-cli join ${ZEROTIER_NETWORK}
   echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
 fi
