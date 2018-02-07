@@ -1,5 +1,8 @@
 #!/bin/bash
 # shellcheck shell=bash 
+exec >  >(tee -ia /tmp/test.log)
+exec 2> >(tee -ia /tmp/test.log >&2)
+
 export PP_SSID=${PP_SSID:-unconfigured-printer-proxy}
 export PRINTER_IP=${PRINTER_IP:-10.42.0.10}
 export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
@@ -16,14 +19,16 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
 
-sleep 5
-
+# sleep 5
+# 
 ifconfig wlan0 down
 
 sleep 2
 ifconfig wlan0 up
 
 sleep 5
+
+
 
 # 3. Is there Internet connectivity via a google ping?
 wget --spider http://google.com 2>&1
@@ -35,8 +40,8 @@ if [ $? -eq 0 ]; then
     printf 'Skipping WiFi Connect\n'
 else
     printf 'Starting WiFi Connect\n'
-    ./wifi-connect -s pp-wifi-setup -p 6rsprinter
-    sleep 5
+    #./wifi-connect -s pp-wifi-setup -p 6rsprinter
+    #sleep 5
     # python ./save_connection.py
 fi
 
