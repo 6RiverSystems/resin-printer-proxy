@@ -13,5 +13,5 @@ for conn in NetworkManager.NetworkManager.ActiveConnections:
             settings['connection']['id'] = 'resin-wifi-01'
             settings['connection']['uuid'] = str(uuid.uuid4())
             conn.Connection.Update(settings)
-            pp.print(settings)
+            pp.pprint(settings)
             #NetworkManager.Settings.AddConnection(settings)
