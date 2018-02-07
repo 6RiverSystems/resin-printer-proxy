@@ -20,14 +20,16 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
 
-n=0
-until [ $n -ge 5 ]
-do
-  echo "Trying to ping google....."
-  ping -c1 ${PRINTER_IP} &>/dev/null && break  # substitute your command here
-  n=$[$n+1]
-  sleep 15
-done
+if [ ! -f "/data/firstboot" ]; then
+  n=0
+  until [ $n -ge 5 ]
+  do
+    echo "Trying to ping google....."
+    ping -c1 ${PRINTER_IP} &>/dev/null && break  # substitute your command here
+    n=$[$n+1]
+    sleep 15
+  done
+fi
 
 # 3. Is there Internet connectivity via a google ping?
 wget --spider http://google.com 2>&1
@@ -82,6 +84,8 @@ elif [ "$ZEROTIER_NETWORK" != "UNSET" ]; then
   zerotier-cli join ${ZEROTIER_NETWORK}
   echo "Zerotier Network Added: ${ZEROTIER_NETWORK}"
 fi
+
+touch /data/firstboot
 
 echo "Waiting for printer to be reachable...."
 until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
