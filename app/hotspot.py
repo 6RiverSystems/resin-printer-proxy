@@ -78,6 +78,8 @@ for path in settings.ListConnections():
     settings_connection = dbus.Interface(proxy, "org.freedesktop.NetworkManager.Settings.Connection")
     config = settings_connection.GetSettings()
     if config['connection']['uuid'] == our_uuid:
+        #update the connection with latest details
+        settings_connection.Update(con)
         connection_path = path
         break
 
