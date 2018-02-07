@@ -1,7 +1,7 @@
 """
 Save Settings that don't get saved
 """
-import NetworkManager, uuid, pprint
+import NetworkManager, pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 for conn in NetworkManager.NetworkManager.ActiveConnections:
