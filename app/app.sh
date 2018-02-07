@@ -20,7 +20,7 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
 
-if [ ! -f "/data/firstboot" ]; then
+if [ -f "/data/firstboot" ]; then
   n=0
   until [ $n -ge 5 ]
   do
