@@ -15,7 +15,7 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 # 2. Is there Internet connectivity?
 # nmcli -t g | grep full
-
+sleep 15
 # 3. Is there Internet connectivity via a google ping?
 wget --spider http://google.com 2>&1
 

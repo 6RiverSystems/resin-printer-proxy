@@ -4,8 +4,8 @@ Save Settings that don't get saved
 import NetworkManager, pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-for resincon in NetworkManager.NetworkManager.Connections:
-    resin_settings = resincon.Connection.GetSettings()
+for resincon in NetworkManager.Settings.ListConnections():
+    resin_settings = resincon.GetSettings()
     if resin_settings['connection']['id'] = 'resin-wifi-01':
         break
 
