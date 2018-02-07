@@ -39,9 +39,8 @@ if [ $? -eq 0 ]; then
     printf 'Skipping WiFi Connect\n'
 else
     printf 'Starting WiFi Connect\n'
-    #./wifi-connect -s pp-wifi-setup -p 6rsprinter
-    #sleep 5
-    # python ./save_connection.py
+    ./wifi-connect -s pp-wifi-setup -p 6rsprinter
+    sleep 5
 fi
 
 envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf 
