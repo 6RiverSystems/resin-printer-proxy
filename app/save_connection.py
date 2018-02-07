@@ -11,7 +11,6 @@ for conn in NetworkManager.NetworkManager.ActiveConnections:
         if 'wlan1' in devices or 'wlan0' in devices:
             print("Saving connection for {}".format(settings['connection']['id']))
             settings['connection']['id'] = 'resin-wifi-01'
-            settings['connection']['uuid'] = str(uuid.uuid4())
             conn.Connection.Update(settings)
             pp.pprint(settings)
             #NetworkManager.Settings.AddConnection(settings)
