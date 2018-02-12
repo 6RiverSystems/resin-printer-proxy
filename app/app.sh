@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck shell=bash 
-LOGFILE=/tmp/app.log
+LOGFILE=ccccccccccccccccccccccc
 exec > >(tee -a $LOGFILE)
 exec 2>&1
 
@@ -22,11 +22,12 @@ export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 if [ -f "/data/firstboot" ]; then
   n=0
-  until [ $n -ge 5 ]
+  until [ $n -ge 20 ]
   do
     echo "Trying to ping google....."
     ping -c1 www.google.com &>/dev/null && break  # substitute your command here
     n=$[$n+1]
+    ifconfig
     sleep 15
   done
 fi
