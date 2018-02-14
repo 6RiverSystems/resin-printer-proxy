@@ -27,6 +27,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
 		pkg-config \
     dnsmasq \
     iptables \
+    traceroute \
     wireless-tools \
 		libdbus-1-dev \
 		libdbus-glib-1-dev && \
