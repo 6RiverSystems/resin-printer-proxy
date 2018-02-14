@@ -93,6 +93,6 @@ until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
 echo "Found printer starting proxy...."
 
 echo "Running forever ping..."
-ping ${PRINTER_IP} &>/tmp/ping.log &
+ping -i 1 ${PRINTER_IP} &>/dev/null &
 
 nginx -g 'daemon off;'
