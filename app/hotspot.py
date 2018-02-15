@@ -37,7 +37,6 @@ s_con = dbus.Dictionary({
 s_wifi = dbus.Dictionary({
     'ssid': dbus.ByteArray(os.environ['PP_SSID'].encode("utf-8")),
     'mac-address-randomization': "0",
-    'hidden': "true",
     'mode': "ap",
     'band': "bg",
     'channel': dbus.UInt32(1)})
