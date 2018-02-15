@@ -30,11 +30,18 @@ our_uuid = '2b0d0f1d-b79d-43af-bde1-71744625642e'
 
 s_con = dbus.Dictionary({
     'type': '802-11-wireless',
+    'autoconnect': "false",
     'uuid': our_uuid,
+    'permissions': '',
+    'secondaries':'',
     'id': 'Test Hotspot'})
 
 s_wifi = dbus.Dictionary({
     'ssid': dbus.ByteArray(os.environ['PP_SSID'].encode("utf-8")),
+    'mac-address-blacklist':'',
+    'seen-bssids': '',
+    'mac-address-randomization': "0",
+    'hidden': "true",
     'mode': "ap",
     'band': "bg",
     'channel': dbus.UInt32(1)})
@@ -44,7 +51,7 @@ s_wsec = dbus.Dictionary({
     'psk': '6rsprinter'})
 
 s_ip4 = dbus.Dictionary({'method': 'shared'})
-s_ip6 = dbus.Dictionary({'method': 'ignore'})
+s_ip6 = dbus.Dictionary({'method': 'auto'})
 
 con = dbus.Dictionary({
     'connection': s_con,
