@@ -16,6 +16,8 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
     tar \
 		python python-dev python-pip python-setuptools \
 		build-essential  \
+    dnsmasq \
+    network-manager \
     nginx-extras \
 		net-tools \
 		gettext \
@@ -42,6 +44,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
       libdbus-1-dev \
       libdbus-glib-1-dev && \
 		rm -rf /etc/nginx/sites-enabled/* && \
+    systemctl mask NetworkManager.service \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
