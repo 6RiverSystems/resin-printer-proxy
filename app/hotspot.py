@@ -33,7 +33,7 @@ s_con = dbus.Dictionary({
     'autoconnect': False,
     'uuid': our_uuid,
     'id': 'Test Hotspot',
-    'interface-name': 'wlan1'})
+    'interface-name': 'wlan0'})
 
 s_wifi = dbus.Dictionary({
     'ssid': dbus.ByteArray(os.environ['PP_SSID'].encode("utf-8")),
@@ -48,7 +48,7 @@ s_wsec = dbus.Dictionary({
     'psk': '6rsprinter'})
 
 s_ip4 = dbus.Dictionary({'method': 'shared'})
-s_ip6 = dbus.Dictionary({'method': 'auto'})
+s_ip6 = dbus.Dictionary({'method': 'auto', 'addr-gen-mode': 'stable-privacy'})
 
 con = dbus.Dictionary({
     'connection': s_con,
