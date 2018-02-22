@@ -81,13 +81,13 @@ for path in settings.ListConnections():
     config = settings_connection.GetSettings()
     if config['connection']['uuid'] == our_uuid:
         #update the connection with latest details
-        settings_connection.Update(con)
+        # settings_connection.Update(con)
         connection_path = path
         break
 
 # If the hotspot connection didn't already exist, add it
-if not connection_path:
-    connection_path = settings.AddConnection(con)
+# if not connection_path:
+#     connection_path = settings.AddConnection(con)
 
 # Now start or stop the hotspot on the requested device
 proxy = bus.get_object(service_name, devpath)
