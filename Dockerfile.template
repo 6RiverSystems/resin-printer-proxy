@@ -47,6 +47,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
       libdbus-glib-1-dev && \
 		rm -rf /etc/nginx/sites-enabled/* && \
     systemctl mask NetworkManager.service \
+    systemctl mask dnsmasq.service \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
