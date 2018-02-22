@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck shell=bash 
-LOGFILE=ccccccccccccccccccccccc
+LOGFILE=/tmp/resin.log
 exec > >(tee -a $LOGFILE)
 exec 2>&1
 
@@ -9,6 +9,9 @@ export PRINTER_IP=${PRINTER_IP:-10.42.0.10}
 export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
 #Enable ip forwarding to route traffic between wifi devices
 sysctl -w net.ipv4.ip_forward=1
+
+cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
+cp /usr/src/app/hostapd.conf /etc/hostapd/hostapd.conf
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
@@ -53,10 +56,9 @@ ln -sf /etc/nginx/sites-available/printer /etc/nginx/sites-enabled/printer
 
 ifconfig
 
-
 echo "Starting printer proxy network: ${PP_SSID}"
-python ./hotspot.py wlan0 up
-
+#python ./hotspot.py wlan0 up
+#hostapd /etc/hostapd/hostapd.conf 
  
 if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
   echo "Linking ZeroTier to data directory"
@@ -88,11 +90,18 @@ fi
 
 touch /data/firstboot
 
-echo "Waiting for printer to be reachable...."
-until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
-echo "Found printer starting proxy...."
+
+iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE 
+iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 
+iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+
+dnsmasq --keep-in-foreground
+
+# echo "Waiting for printer to be reachable...."
+# until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
+# echo "Found printer starting proxy...."
 
 #echo "Running forever ping..."
 #ping -i 1 ${PRINTER_IP} &>/dev/null &
 
-nginx -g 'daemon off;'
+# nginx -g 'daemon off;'
