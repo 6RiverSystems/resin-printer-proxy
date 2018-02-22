@@ -16,7 +16,7 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
     tar \
     hostapd \
     rfkill \
-		python python-dev python-pip python-setuptools \
+		python python-dev python-pip python-setuptools python-wheel \
 		build-essential  \
     dnsmasq \
     network-manager \
@@ -35,7 +35,6 @@ RUN echo "deb http://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sourc
     wireless-tools \
 		libdbus-1-dev \
 		libdbus-glib-1-dev && \
-    pip install wheel && \
     pip install python-networkmanager  && \
     systemctl disable nginx && \
     apt-get purge \
