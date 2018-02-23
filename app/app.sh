@@ -12,6 +12,7 @@ sysctl -w net.ipv4.ip_forward=1
 
 cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
 cp /usr/src/app/hostapd.conf /etc/hostapd/hostapd.conf
+cp /usr/src/interfaces /etc/network/interfaces
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
@@ -94,6 +95,10 @@ touch /data/firstboot
 iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE 
 iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 
 iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+
+rfkill unblock wlan
+ifdown wlan0
+ifup wlan0
 
 dnsmasq --keep-in-foreground
 
