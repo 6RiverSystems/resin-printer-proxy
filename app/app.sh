@@ -96,11 +96,11 @@ iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 
 iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
-rfkill unblock wlan
-ifdown wlan0
-ifup wlan0
-
-dnsmasq --keep-in-foreground
+# rfkill unblock wlan
+# ifdown wlan0
+# ifup wlan0
+# 
+# dnsmasq --keep-in-foreground
 
 # echo "Waiting for printer to be reachable...."
 # until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
