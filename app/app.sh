@@ -13,7 +13,7 @@ sysctl -w net.ipv4.ip_forward=1
 cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
 cp /usr/src/app/wlan0 /etc/network/interfaces.d/wlan0
 
-envsubst < /usr/src/app/hostapd.template > /usr/src/app/hostapd.conf
+envsubst < /usr/src/app/hostapd.template > /etc/hostapd/hostapd.conf
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
