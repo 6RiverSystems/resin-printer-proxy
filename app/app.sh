@@ -11,8 +11,9 @@ export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
 sysctl -w net.ipv4.ip_forward=1
 
 cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
-cp /usr/src/app/hostapd.conf /etc/hostapd/hostapd.conf
 cp /usr/src/app/wlan0 /etc/network/interfaces.d/wlan0
+
+envsubst < /usr/src/app/hostapd.template > /usr/src/app/hostapd.conf
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
@@ -103,13 +104,10 @@ hostapd /etc/hostapd/hostapd.conf &
 sleep 1
 
 echo "Starting dns server"
-dnsmasq --keep-in-foreground 
+dnsmasq --keep-in-foreground &
 
-# echo "Waiting for printer to be reachable...."
-# until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
-# echo "Found printer starting proxy...."
+echo "Waiting for printer to be reachable...."
+until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
+echo "Found printer starting proxy...."
 
-#echo "Running forever ping..."
-#ping -i 1 ${PRINTER_IP} &>/dev/null &
-
-# nginx -g 'daemon off;'
+nginx -g 'daemon off;'
