@@ -12,9 +12,11 @@ sysctl -w net.ipv4.ip_forward=1
 
 cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
 cp /usr/src/app/hostapd.conf /etc/hostapd/hostapd.conf
-cp /usr/src/interfaces /etc/network/interfaces
+cp /usr/src/wlan0 /etc/network/interfaces.d/wlan0
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+
+nmcli dev set wlan0 managed no
 
 # Choose a condition for running WiFi Connect according to your use case:
 
@@ -54,12 +56,6 @@ envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf
 envsubst < /etc/nginx/printer-template > /etc/nginx/sites-available/printer
 
 ln -sf /etc/nginx/sites-available/printer /etc/nginx/sites-enabled/printer
-
-ifconfig
-
-echo "Starting printer proxy network: ${PP_SSID}"
-#python ./hotspot.py wlan0 up
-#hostapd /etc/hostapd/hostapd.conf 
  
 if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
   echo "Linking ZeroTier to data directory"
@@ -96,11 +92,18 @@ iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 
 iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 
-# rfkill unblock wlan
-# ifdown wlan0
-# ifup wlan0
-# 
-# dnsmasq --keep-in-foreground
+ifup wlan0
+
+sleep 5
+
+dnsmasq --keep-in-foreground &
+
+sleep 1
+
+echo "Starting printer proxy network: ${PP_SSID}"
+#python ./hotspot.py wlan0 up
+hostapd /etc/hostapd/hostapd.conf &
+
 
 # echo "Waiting for printer to be reachable...."
 # until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
