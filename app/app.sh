@@ -96,14 +96,14 @@ ifup wlan0
 
 sleep 5
 
-dnsmasq --keep-in-foreground &
-
-sleep 1
-
 echo "Starting printer proxy network: ${PP_SSID}"
 #python ./hotspot.py wlan0 up
 hostapd /etc/hostapd/hostapd.conf &
 
+sleep 1
+
+echo "Starting dns server"
+dnsmasq --keep-in-foreground &
 
 # echo "Waiting for printer to be reachable...."
 # until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
