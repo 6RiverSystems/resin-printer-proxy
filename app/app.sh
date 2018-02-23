@@ -104,7 +104,7 @@ hostapd /etc/hostapd/hostapd.conf &
 sleep 1
 
 echo "Starting dns server"
-dnsmasq --keep-in-foreground &
+dnsmasq --keep-in-foreground --log-facility=- &
 
 echo "Waiting for printer to be reachable...."
 until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
