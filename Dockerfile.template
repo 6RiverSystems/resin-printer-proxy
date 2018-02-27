@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
 		rm -rf /etc/nginx/sites-enabled/* && \
     systemctl mask NetworkManager.service \
     systemctl mask dnsmasq.service \
-    systemctl mask telegraf.service \
+    systemctl disable telegraf.service \
     apt-get clean && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*

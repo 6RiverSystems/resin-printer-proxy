@@ -74,7 +74,7 @@ if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
 fi
 
 echo "Starting telegraf"
-/etc/init.d/telegraf start
+service telegraf start
 
 echo "ZeroTier Started with status:"
 zerotier-cli info
