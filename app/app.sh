@@ -73,6 +73,8 @@ if [[ ! -L "/var/lib/zerotier-one" && -d "/var/lib/zerotier-one" ]]; then
   sleep 5
 fi
 
+echo "Starting telegraf"
+/etc/init.d/telegraf start
 
 echo "ZeroTier Started with status:"
 zerotier-cli info
