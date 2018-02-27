@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y apt-transport-https && \
     tar \
     hostapd \
     rfkill \
+    telegraf \
 		python python-dev python-pip python-setuptools python-wheel \
 		build-essential  \
     dnsmasq \
