@@ -11,13 +11,13 @@ export ZEROTIER_NETWORK=${ZEROTIER_NETWORK:-UNSET}
 sysctl -w net.ipv4.ip_forward=1
 
 cp /usr/src/app/dnsmasq.conf /etc/dnsmasq.conf
-cp /usr/src/app/wlan0 /etc/network/interfaces.d/wlan0
+cp /usr/src/app/wlan1 /etc/network/interfaces.d/wlan1
 
 envsubst < /usr/src/app/hostapd.template > /etc/hostapd/hostapd.conf
 
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
-nmcli dev set wlan0 managed no
+nmcli dev set wlan1 managed no
 
 # Choose a condition for running WiFi Connect according to your use case:
 
@@ -49,7 +49,7 @@ if [ $? -eq 0 ]; then
     printf 'Skipping WiFi Connect\n'
 else
     printf 'Starting WiFi Connect\n'
-    ./wifi-connect -s pp-wifi-setup -p 6rsprinter -i wlan1
+    ./wifi-connect -s pp-wifi-setup -p 6rsprinter -i wlan0
     sleep 5
 fi
 
@@ -92,11 +92,11 @@ fi
 touch /data/firstboot
 
 
-iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE 
-iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT 
-iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+iptables -t nat -A POSTROUTING -o wlan0 -j MASQUERADE 
+iptables -A FORWARD -i wlan0 -o wlan1 -m state --state RELATED,ESTABLISHED -j ACCEPT 
+iptables -A FORWARD -i wlan1 -o wlan0 -j ACCEPT
 
-ifup wlan0
+ifup wlan1
 
 sleep 5
 
