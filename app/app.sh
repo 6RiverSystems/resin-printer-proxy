@@ -111,6 +111,10 @@ dnsmasq --keep-in-foreground --log-facility=- &
 
 echo "Waiting for printer to be reachable...."
 until ping -c1 ${PRINTER_IP} &>/dev/null; do :; done
-echo "Found printer starting proxy...."
 
+echo "Found printer starting proxy...."
 nginx -g 'daemon off;'
+
+echo "Running forever ping..."
+ping -i 1 ${PRINTER_IP} &>/dev/null &
+
